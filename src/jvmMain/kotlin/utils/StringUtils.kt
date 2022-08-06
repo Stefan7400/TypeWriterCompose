@@ -4,7 +4,7 @@ fun matchAtIndex(given: String, toMatch : String): Boolean{
     return toMatch.startsWith(given)
 }
 
-fun createTextLines(inputText : String, charLimitPerLine : Int): List<String>{
+fun createTextLines(inputText : String, charLimitPerLine : Int): ArrayList<String>{
     val textLines = arrayListOf<String>()
     val words = inputText.split(" ")
     var charCounter = 0

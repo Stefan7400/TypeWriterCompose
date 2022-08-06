@@ -8,14 +8,23 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.runBlocking
+import utils.createTextLines
 import utils.matchAtIndex
 
 class MainComponentViewModel {
+    var texts = arrayListOf<String>()
+    var lineCounter = 0
     var keyStrokes = MutableStateFlow(0)
-    val currentTextState = MutableStateFlow("Beispiel Satz mit ein paar mehr Wörtern und Charactern!")
+    val currentTextState = MutableStateFlow("")
     var textState = mutableStateOf("")
     var keyStrokesPerSecondText =  MutableStateFlow(0)
     //var keyStrokeText : StateFlow<String> = keyStrokesPerSecondText
+
+
+    init {
+        this.texts =createTextLines(" is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",30)
+        this.currentTextState.value = texts[lineCounter]
+    }
 
     var thread = Thread {
         while (true) {
@@ -33,7 +42,8 @@ class MainComponentViewModel {
         if(input == currentTextState.value){
             //Text has been finished load next one
             this.textState.value = ""
-            this.currentTextState.value = "IRgend ein anderenr Text zum eingeben"
+            lineCounter++
+            this.currentTextState.value = texts[lineCounter]
         }
 
         if(matchAtIndex(input,currentTextState.value)) {
