@@ -10,12 +10,16 @@ fun createTextLines(inputText : String, charLimitPerLine : Int): ArrayList<Strin
     var charCounter = 0
     var currentString = ""
     for (word in words) {
+        if(word.isEmpty()){
+            continue
+        }
         if(charCounter + ( word.length + 1) <= charLimitPerLine){
         } else {
             charCounter = 0
             textLines.add(currentString)
+            currentString = ""
         }
-        currentString = word
+        currentString += "$word "
         charCounter += word.length + 1
     }
     return textLines

@@ -6,12 +6,11 @@ import utils.Component
 class TypedTextSelectorComponentHolder : Component {
 
 
-    val typedTextSelectorComponentViewModel = TypedTextSelectorComponentViewModel()
+     val typedTextSelectorComponentViewModel = TypedTextSelectorComponentViewModel()
 
 
     @Composable
     override fun render() {
-        println("Rendered")
         TypedTextSelectorComponent(typedTextSelectorComponentViewModel)
     }
 }
