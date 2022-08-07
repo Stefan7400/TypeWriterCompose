@@ -8,6 +8,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.runBlocking
+import androidx.compose.ui.graphics.Color
 import propertychange.PropertyChangeNames
 import utils.createTextLines
 import utils.matchAtIndex
@@ -21,6 +22,7 @@ class MainComponentViewModel : PropertyChangeListener {
     val currentTextState = MutableStateFlow("")
     var textState = mutableStateOf("")
     var keyStrokesPerSecondText =  MutableStateFlow(0)
+    var focusedIndicatorColor = mutableStateOf(Color.Blue)
     //var keyStrokeText : StateFlow<String> = keyStrokesPerSecondText
 
 
@@ -53,6 +55,16 @@ class MainComponentViewModel : PropertyChangeListener {
            // keyStrokes++
           //  println(keyStrokes)
             this.textState.value = input
+            if (this.focusedIndicatorColor.value == Color.Green){
+                this.focusedIndicatorColor.value = Color.Blue
+            }
+            if(this.focusedIndicatorColor.value == Color.Red){
+                this.focusedIndicatorColor.value = Color.Green
+            }
+
+        } else {
+            //misstyped
+            this.focusedIndicatorColor.value = Color.Red
         }
 
     }
