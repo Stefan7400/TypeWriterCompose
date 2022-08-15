@@ -7,9 +7,9 @@ import java.beans.PropertyChangeSupport
 class PropertyChangeEventDelegator private constructor() {
 
     companion object {
-        private lateinit var instance : PropertyChangeEventDelegator
+        private  var instance : PropertyChangeEventDelegator? = null
 
-        fun instance() : PropertyChangeEventDelegator{
+        fun instance() : PropertyChangeEventDelegator?{
             if (instance == null){
                 instance = PropertyChangeEventDelegator()
             }
@@ -31,8 +31,12 @@ class PropertyChangeEventDelegator private constructor() {
     }
 
 
-    fun <T> firePropertyChangeEvent(source : Any, propertyname: String, oldValue : T, newValue : T){
-        firePropertyChangeEvent(GenericP)
+    fun <T> firePropertyChangeEvent(source : Any, propertyname: String, newValue : T){
+        firePropertyChangeEvent(source,propertyname,null,newValue)
+    }
+
+    fun <T> firePropertyChangeEvent(source : Any, propertyname: String,oldValue : T, newValue : T){
+        firePropertyChangeEvent(GenericPropertyChangeEvent(source,propertyname,oldValue,newValue))
     }
 
     fun firePropertyChangeEvent(event : PropertyChangeEvent){

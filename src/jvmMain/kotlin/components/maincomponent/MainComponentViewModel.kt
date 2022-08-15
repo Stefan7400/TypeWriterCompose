@@ -15,7 +15,7 @@ import utils.matchAtIndex
 import java.beans.PropertyChangeEvent
 import java.beans.PropertyChangeListener
 
-class MainComponentViewModel : PropertyChangeListener {
+open class MainComponentViewModel {
     var texts = arrayListOf<String>()
     var lineCounter = 0
     var keyStrokes = MutableStateFlow(0)
@@ -27,20 +27,9 @@ class MainComponentViewModel : PropertyChangeListener {
 
 
     init {
-        this.texts =createTextLines("is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",60)
+        this.texts =createTextLines("is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",77)
         this.currentTextState.value = texts[lineCounter]
     }
-
-    var thread = Thread {
-        while (true) {
-            //keyStrokeText.value = "KPS: ${keyStrokes.value}"
-            Thread.sleep(1000L)
-            keyStrokes.value = 0
-        }
-    }.start()
-
-
-
 
     fun onTextFieldInput(input : String) {
 
@@ -69,14 +58,8 @@ class MainComponentViewModel : PropertyChangeListener {
 
     }
 
-    private fun handleTextFileSelected(path : String?){
+     fun handleTextFileSelected(path : String?){
         println("HANDLE METHOD")
-    }
-
-    override fun propertyChange(evt: PropertyChangeEvent?) {
-        when (evt?.propertyName) {
-            PropertyChangeNames.TEXT_FILE_SELECTED -> handleTextFileSelected(evt.newValue as String)
-        }
     }
 
 }
