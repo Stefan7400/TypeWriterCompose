@@ -6,6 +6,7 @@ import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.currentComposer
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -41,19 +42,18 @@ fun TypedTextSelectorComponent(viewModel : TypedTextSelectorComponentViewModel){
                 Text("Select File")
 
                 if(viewModel.showFileChooser.value){
-                    OpenFileChooserDialog(onCloseRequest = {
-                        PropertyChangeEventDelegator.instance()?.firePropertyChangeEvent(this, TEXT_FILE_SELECTED,"old",it)
-                        viewModel.onTextFileSelected(it)
+                    OpenFileChooserDialog {
+                        it?.let {
+                            PropertyChangeEventDelegator.instance()
+                                ?.firePropertyChangeEvent(this, TEXT_FILE_SELECTED, "old", it)
                         }
-                    )
+
+                        //viewModel.onTextFileSelected(it)
+                    }
                 }
             }
         }
 
     }
-
-}
-
-fun CreateFileChooserMenuItem(){
 
 }

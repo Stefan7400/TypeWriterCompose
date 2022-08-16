@@ -18,7 +18,7 @@ class MainComponentHolder : PropertyChangeListenerBase(),Component{
 
     override fun createPropertyEventHandlers(): Map<String, IPropertyEventHandler> {
         val handlers = mutableMapOf<String, IPropertyEventHandler>()
-        handlers.put(TEXT_FILE_SELECTED, {mainViewModel.handleTextFileSelected(it.newValue as String)} )
+        handlers.put(TEXT_FILE_SELECTED, {mainViewModel.handleTextFileSelected(it.newValue as String?)} )
 
         return  handlers
     }

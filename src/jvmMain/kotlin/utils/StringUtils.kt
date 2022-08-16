@@ -22,5 +22,10 @@ fun createTextLines(inputText : String, charLimitPerLine : Int): ArrayList<Strin
         currentString += "$word "
         charCounter += word.length + 1
     }
+
+    if(textLines.size == 0){
+        //the given text has been under 77 chars
+        textLines.add(currentString)
+    }
     return textLines
 }

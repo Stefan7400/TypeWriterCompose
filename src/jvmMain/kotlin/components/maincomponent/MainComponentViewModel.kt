@@ -1,6 +1,7 @@
 package components.maincomponent
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.currentComposer
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.input.TextFieldValue
@@ -14,6 +15,7 @@ import utils.createTextLines
 import utils.matchAtIndex
 import java.beans.PropertyChangeEvent
 import java.beans.PropertyChangeListener
+import java.io.File
 
 open class MainComponentViewModel {
     var texts = arrayListOf<String>()
@@ -59,7 +61,15 @@ open class MainComponentViewModel {
     }
 
      fun handleTextFileSelected(path : String?){
-        println("HANDLE METHOD")
+        if(path == null){
+            return
+        }
+        val textFile = File(path)
+         var text = ""
+         textFile.forEachLine { text += it }
+         this.texts = createTextLines(text,77)
+         this.currentTextState.value = texts[0]
+            //TODO maybe use livedata to trigger recomposition earlier?
     }
 
 }
